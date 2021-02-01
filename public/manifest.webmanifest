@@ -1,0 +1,22 @@
+{
+  "short_name": "MH Bot",
+  "name": "MH Bot",
+  "description": "O guia de Monsenhor Hipólito",
+  "icons": [
+    {
+      "src": "logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fafafa",
+  "theme_color": "#4a6afe",
+  "display": "standalone",
+  "scope": "/"
+}
