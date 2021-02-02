@@ -22,11 +22,12 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "import"],
+  "plugins": ["react", "@typescript-eslint", "import", "prettier"],
   "rules": {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".tsx"] }],
+    // "react/jsx-props-no-spreading": [1, { "html": "ignore" }],
     "import/extensions": [
       "error",
       "ignorePackages",
