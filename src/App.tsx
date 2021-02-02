@@ -1,3 +1,20 @@
+import { useState } from 'react';
+import Splash from './pages/Splash';
+
 export default function App() {
-  return <h1>MH Bot</h1>;
+  const screens = {
+    splash: 'SPLASH',
+    chat: 'CHAT',
+    about: 'ABOUT',
+  };
+
+  const [currentScreen, setCurrentScreen] = useState(screens.splash);
+
+  return (
+    <>
+      {currentScreen === screens.splash && (
+        <Splash onClick={() => setCurrentScreen(screens.chat)} />
+      )}
+    </>
+  );
 }
