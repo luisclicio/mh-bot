@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import Splash from './pages/Splash';
+import Chat from './pages/Chat';
 
 export default function App() {
   const screens = {
@@ -14,6 +16,10 @@ export default function App() {
     <>
       {currentScreen === screens.splash && (
         <Splash onClick={() => setCurrentScreen(screens.chat)} />
+      )}
+
+      {currentScreen === screens.chat && (
+        <Chat onClick={() => setCurrentScreen(screens.about)} />
       )}
     </>
   );
