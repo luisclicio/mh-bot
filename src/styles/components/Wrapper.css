@@ -1,19 +1,34 @@
 .wrapper {
-  animation: appear 1s;
   height: 100vh;
   margin: 0 auto;
   max-width: 720px;
   width: 100%;
 }
 
+.wrapper--appear {
+  animation: appear 1s;
+}
+
+.wrapper--move {
+  animation: move 1s;
+}
+
 @keyframes appear {
   from {
     opacity: 0;
-    transform: translateY(50px);
   }
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes move {
+  from {
+    transform: translateY(50px);
+  }
+
+  to {
     transform: translateY(0);
   }
 }
