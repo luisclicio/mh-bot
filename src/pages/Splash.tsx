@@ -5,14 +5,20 @@ import '../styles/pages/Splash.css';
 
 export default function Splash({ onClick }: { onClick: () => void }) {
   return (
-    <Wrapper>
-      <section className="container">
-        <BotLogo className="container__logo" />
+    <Wrapper animation={{ appear: true, move: true }}>
+      <section className="splash-container">
+        <BotLogo className="splash-container__logo" />
 
-        <h1 className="container__title">MH Bot</h1>
-        <h2 className="container__subtitle">O guia de Monsenhor Hipólito</h2>
+        <h1 className="splash-container__title">MH Bot</h1>
+        <h2 className="splash-container__subtitle">
+          O guia de Monsenhor Hipólito
+        </h2>
 
-        <button type="button" className="container__button" onClick={onClick}>
+        <button
+          type="button"
+          className="splash-container__button"
+          onClick={onClick}
+        >
           Começar agora
         </button>
       </section>

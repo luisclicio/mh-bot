@@ -1,4 +1,4 @@
-.container {
+.splash-container {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -8,24 +8,24 @@
   text-align: center;
 }
 
-.container__logo {
+.splash-container__logo {
   max-width: 200px;
   width: 100%;
 }
 
-.container__title {
+.splash-container__title {
   font-size: 3.2rem;
   font-weight: 700;
   margin-top: 16px;
 }
 
-.container__subtitle {
+.splash-container__subtitle {
   font-size: 1.6rem;
   font-weight: 600;
   margin-top: 8px;
 }
 
-.container__button {
+.splash-container__button {
   background: var(--blue-color);
   border: none;
   border-radius: var(--border-radius);
@@ -33,7 +33,7 @@
   color: var(--white-color);
   font-size: 1.6rem;
   font-weight: 700;
-  height: 48px;
+  height: 56px;
   margin-top: 40px;
   padding: 8px 16px;
   transition: opacity 300ms;
@@ -41,6 +41,6 @@
   width: 100%;
 }
 
-.container__button:hover {
+.splash-container__button:hover {
   opacity: 0.9;
 }
