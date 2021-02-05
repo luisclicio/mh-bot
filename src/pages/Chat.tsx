@@ -1,8 +1,11 @@
 import { FormEvent, useRef, useState } from 'react';
 import { BiInfoCircle as InfoIcon, BiSend as SendIcon } from 'react-icons/bi';
+import ReactMarkdown from 'react-markdown';
 
 import Wrapper from '../components/Wrapper';
 import BotLogo from '../components/BotLogo';
+
+import MHBot from '../mhbot';
 
 import '../styles/pages/Chat.css';
 
@@ -14,7 +17,7 @@ interface MessageItem {
 const initialMessages: MessageItem[] = [
   {
     from: 'bot',
-    text: 'Olá, sou o MH Bot! Estou aqui para te ajudar!',
+    text: 'Olá, sou o **MH Bot**! Estou aqui para te ajudar!',
   },
   {
     from: 'bot',
@@ -45,12 +48,10 @@ export default function Chat({ onClick }: { onClick: () => void }) {
       return;
     }
 
-    const botResponses: MessageItem[] = ['Response 1', 'Response 2'].map(
-      (response) => ({
-        from: 'bot',
-        text: response,
-      })
-    );
+    const botResponses: MessageItem[] = MHBot(message).map((response) => ({
+      from: 'bot',
+      text: response,
+    }));
 
     setMessages([
       ...messages,
@@ -88,12 +89,12 @@ export default function Chat({ onClick }: { onClick: () => void }) {
 
         <section className="chat-container__messages" ref={messagesContainer}>
           {messages.map((message, index) => (
-            <p
+            <article
               key={`message_${index}`}
               className={`chat-container__messages__message chat-container__messages__message--${message.from}`}
             >
-              {message.text}
-            </p>
+              <ReactMarkdown>{message.text}</ReactMarkdown>
+            </article>
           ))}
         </section>
 

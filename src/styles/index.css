@@ -1,7 +1,8 @@
 :root {
   --blue-color: #4a6afe;
-  --blue-shadow-color: rgba(74, 106, 254, 0.5);
+  --blue-shadow-color: rgba(74, 106, 254, 0.4);
   --black-color: #79858f;
+  --black-shadow-color: rgba(121, 133, 143, 0.4);
   --white-color: #fafafa;
   --gray-color: #dee2e6;
 
@@ -39,6 +40,12 @@ body {
   background: var(--white-color);
   color: var(--black-color);
   height: 100%;
+}
+
+a {
+  color: var(--blue-color);
+  font-weight: 700;
+  text-decoration: none;
 }
 
 button {
