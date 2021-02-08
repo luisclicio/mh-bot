@@ -6,6 +6,7 @@ import Wrapper from '../components/Wrapper';
 import BotLogo from '../components/BotLogo';
 
 import MHBot from '../mhbot';
+import suggestions from '../mhbot/suggestions';
 
 import '../styles/pages/Chat.css';
 
@@ -39,15 +40,7 @@ export default function Chat({ onClick }: { onClick: () => void }) {
     });
   }
 
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    messageInput.current?.focus();
-
-    if (!message) {
-      return;
-    }
-
+  function loadResponses(message: string) {
     const botResponses: MessageItem[] = MHBot(message).map((response) => ({
       from: 'bot',
       text: response,
@@ -62,8 +55,19 @@ export default function Chat({ onClick }: { onClick: () => void }) {
       ...botResponses,
     ]);
 
-    setMessage('');
     setTimeout(scrollMessagesContainerToBottom, 0);
+  }
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    messageInput.current?.focus();
+
+    if (!message) {
+      return;
+    }
+
+    loadResponses(message);
+    setMessage('');
   }
 
   return (
@@ -99,7 +103,17 @@ export default function Chat({ onClick }: { onClick: () => void }) {
         </section>
 
         <footer className="chat-container__user-input">
-          <div className="chat-container__user-input__suggestions"></div>
+          <div className="chat-container__user-input__suggestions">
+            {suggestions.map((suggestion) => (
+              <input
+                type="button"
+                value={suggestion.toLocaleLowerCase()}
+                className="chat-container__user-input__suggestions__suggestion"
+                key={suggestion}
+                onClick={() => loadResponses(suggestion)}
+              />
+            ))}
+          </div>
 
           <form
             className="chat-container__user-input__form"
