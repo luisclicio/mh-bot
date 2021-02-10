@@ -5,7 +5,7 @@ export interface QueryItem {
 
 export default function Bot(queries: QueryItem[], fallbackMessage: string) {
   return (message: string) => {
-    let responses: string[] = [];
+    const responses: string[] = [];
 
     queries.forEach((query) => {
       if (query.pattern.test(message)) {

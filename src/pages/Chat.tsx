@@ -28,7 +28,7 @@ const initialMessages: MessageItem[] = [
 
 export default function Chat({ onClick }: { onClick: () => void }) {
   const [messages, setMessages] = useState<MessageItem[]>(initialMessages);
-  const [message, setMessage] = useState('');
+  const [messageInputValue, setMessageInputValue] = useState('');
 
   const messagesContainer = useRef<HTMLElement>(null);
   const messageInput = useRef<HTMLInputElement>(null);
@@ -40,17 +40,19 @@ export default function Chat({ onClick }: { onClick: () => void }) {
     });
   }
 
-  function loadResponses(message: string) {
-    const botResponses: MessageItem[] = MHBot(message).map((response) => ({
-      from: 'bot',
-      text: response,
-    }));
+  function loadMessages(messageReceived: string) {
+    const botResponses: MessageItem[] = MHBot(messageReceived).map(
+      (response) => ({
+        from: 'bot',
+        text: response,
+      })
+    );
 
     setMessages([
       ...messages,
       {
         from: 'user',
-        text: message,
+        text: messageReceived,
       },
       ...botResponses,
     ]);
@@ -62,12 +64,12 @@ export default function Chat({ onClick }: { onClick: () => void }) {
     event.preventDefault();
     messageInput.current?.focus();
 
-    if (!message) {
+    if (!messageInputValue) {
       return;
     }
 
-    loadResponses(message);
-    setMessage('');
+    loadMessages(messageInputValue);
+    setMessageInputValue('');
   }
 
   return (
@@ -110,7 +112,7 @@ export default function Chat({ onClick }: { onClick: () => void }) {
                 value={suggestion.toLocaleLowerCase()}
                 className="chat-container__user-input__suggestions__suggestion"
                 key={suggestion}
-                onClick={() => loadResponses(suggestion)}
+                onClick={() => loadMessages(suggestion)}
               />
             ))}
           </div>
@@ -123,8 +125,8 @@ export default function Chat({ onClick }: { onClick: () => void }) {
               placeholder="Digite uma mensagem"
               className="chat-container__user-input__form__input"
               ref={messageInput}
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
+              value={messageInputValue}
+              onChange={(event) => setMessageInputValue(event.target.value)}
               onClick={scrollMessagesContainerToBottom}
             />
 
