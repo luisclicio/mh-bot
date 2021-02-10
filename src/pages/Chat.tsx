@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from 'react';
+import { useEffect, useRef, useState, FormEvent } from 'react';
 import { BiInfoCircle as InfoIcon, BiSend as SendIcon } from 'react-icons/bi';
 import ReactMarkdown from 'react-markdown';
 
@@ -41,6 +41,14 @@ export default function Chat({ onClick }: { onClick: () => void }) {
   }
 
   function loadMessages(messageReceived: string) {
+    setMessages([
+      ...messages,
+      {
+        from: 'user',
+        text: messageReceived,
+      },
+    ]);
+
     const botResponses: MessageItem[] = MHBot(messageReceived).map(
       (response) => ({
         from: 'bot',
@@ -48,16 +56,7 @@ export default function Chat({ onClick }: { onClick: () => void }) {
       })
     );
 
-    setMessages([
-      ...messages,
-      {
-        from: 'user',
-        text: messageReceived,
-      },
-      ...botResponses,
-    ]);
-
-    setTimeout(scrollMessagesContainerToBottom, 0);
+    setMessages((prevMessages) => [...prevMessages, ...botResponses]);
   }
 
   function handleSubmit(event: FormEvent) {
@@ -71,6 +70,10 @@ export default function Chat({ onClick }: { onClick: () => void }) {
     loadMessages(messageInputValue);
     setMessageInputValue('');
   }
+
+  useEffect(() => {
+    scrollMessagesContainerToBottom();
+  }, [messages]);
 
   return (
     <Wrapper animation={{ appear: true }}>
@@ -94,14 +97,17 @@ export default function Chat({ onClick }: { onClick: () => void }) {
         </header>
 
         <section className="chat-container__messages" ref={messagesContainer}>
-          {messages.map((message, index) => (
-            <article
-              key={`message_${index}`}
-              className={`chat-container__messages__message chat-container__messages__message--${message.from}`}
-            >
-              <ReactMarkdown>{message.text}</ReactMarkdown>
-            </article>
-          ))}
+          {messages.map((message, index) => {
+            const messageKey = `message_${index}`;
+            return (
+              <article
+                key={messageKey}
+                className={`chat-container__messages__message chat-container__messages__message--${message.from}`}
+              >
+                <ReactMarkdown>{message.text}</ReactMarkdown>
+              </article>
+            );
+          })}
         </section>
 
         <footer className="chat-container__user-input">
